@@ -1,0 +1,51 @@
+{
+  "name": "auth-graphql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+  },
+  "engines": {
+    "node": "9.2.0"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-cache-inmemory": "^1.2.2",
+    "apollo-client": "^2.3.2",
+    "apollo-link-http": "^1.5.4",
+    "axios": "^0.18.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.3",
+    "connect-mongo": "^2.0.1",
+    "crypto": "^1.0.1",
+    "css-loader": "^0.28.11",
+    "express": "^4.16.3",
+    "express-graphql": "^0.6.12",
+    "express-session": "^1.15.6",
+    "graphql": "^0.13.2",
+    "graphql-tag": "^2.9.2",
+    "html-webpack-plugin": "^3.2.0",
+    "lodash": "^4.17.10",
+    "mongoose": "^5.1.3",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "react": "^16.4.0",
+    "react-apollo": "^2.1.4",
+    "react-dom": "^16.4.0",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "style-loader": "^0.21.0",
+    "webpack": "^4.10.2",
+    "webpack-dev-middleware": "^3.1.3"
+  }
+}

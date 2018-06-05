@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const models = require('./models');
 const expressGraphQL = require('express-graphql');
@@ -7,16 +8,17 @@ const passport = require('passport');
 const passportConfig = require('./services/auth');
 const MongoStore = require('connect-mongo')(session);
 const schema = require('./schema/schema');
-const MONGO_AUTH = require('./mongodb-auth-open');
-require('dotenv').load();
+// const MONGO_AUTH = require('./mongodb-auth-open');
+
 
 // Create a new Express application
 const app = express();
+console.log('test from server', process.env.MONGODB_URI);
 
 // Replace with your mongoLab URI
 
-const MONGODB_URI = MONGO_AUTH || process.env.MONGODB_URI;
-console.log('test from server', process.env.MONGODB_URI);
+// const MONGODB_URI = MONGO_AUTH || process.env.MONGODB_URI;
+const MONGODB_URI = process.env.MONGODB_URI ;
 // Mongoose's built in promise library is deprecated, replace it with ES2015 Promise
 mongoose.Promise = global.Promise;
 

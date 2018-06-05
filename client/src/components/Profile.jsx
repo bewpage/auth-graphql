@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Dashboard extends Component{
+class Profile extends Component{
 
 
     render(){
@@ -8,7 +8,7 @@ class Dashboard extends Component{
         const { user } = this.props.data;
         return (
             <div className='center-align'>
-                <h3>Welcome Back</h3>
+                <h3>Profile</h3>
                 <h5>user: {user.email}</h5>
             </div>
         )
@@ -21,4 +21,4 @@ class Dashboard extends Component{
 //     })
 // )(Dashboard);
 
-export default Dashboard;
+export default Profile;

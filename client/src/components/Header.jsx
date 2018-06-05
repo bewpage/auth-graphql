@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, NavLink } from 'react-router-dom';
 import { graphql, compose } from 'react-apollo';
 import currentUser from '../../queries/CurrentUser';
 import logoutUser from '../../mutations/logoutUser';
@@ -66,19 +66,26 @@ class Header extends Component {
             return(
                 <div>
                     <ul id='nav-mobile' className='right hide-on-med-and-down'>
-                        <li><a>Profile</a></li>
-                        <li><a>Dashboard</a></li>
+                        <li className={this.props.location.pathname === '/profile' ? 'active' : ''}><Link to='/profile'>Profile</Link></li>
+                        <li className={this.props.location.pathname === '/dashboard' ? 'active' : ''}><Link to='/dashboard'>Dashboard</Link></li>
                         <li><a>Settings</a></li>
                         <li><a onClick={() => this.logoutButton(user.email)}>Signout</a></li>
                     </ul>
+                    {/*side nav menu*/}
                     <ul
                         className='sidenav'
                         id='mobile-demo'
                         // ref={this.menuMobileNav}
                         style={(toggle ? sideNavOpen : {})}
                     >
-                        <li><a>Profile</a></li>
-                        <li><a>Dashboard</a></li>
+                        <li
+                            className={this.props.location.pathname === '/dashboard' ? 'active' : ''}
+                            onClick={() => toggleHandler()}
+                        ><Link to='/profile'>Profile</Link></li>
+                        <li
+                            className={this.props.location.pathname === '/dashboard' ? 'active' : ''}
+                            onClick={() => toggleHandler()}
+                        ><Link to='/dashboard'>Dashboard</Link></li>
                         <li><a>Settings</a></li>
                         <li><a onClick={() => {this.logoutButton(user.email); toggleHandler()}}>Signout</a></li>
                     </ul>
@@ -88,8 +95,8 @@ class Header extends Component {
             return(
                 <div>
                     <ul id='nav-mobile' className='right hide-on-med-and-down'>
-                        <li><Link to='/signin'>Signin</Link></li>
-                        <li><Link to='/signup'>Signup</Link></li>
+                        <li className={this.props.location.pathname === '/signin' ? 'active' : ''}><Link to='/signin'>Signin</Link></li>
+                        <li className={this.props.location.pathname === '/signup' ? 'active' : ''}><Link to='/signup'>Signup</Link></li>
                     </ul>
                     <ul
                         className={classList.join(' ')}

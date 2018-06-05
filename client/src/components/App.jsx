@@ -20,7 +20,7 @@ class App extends Component {
             return (
                 <div className='center-align'>
                     <h3>
-                        App Starter Page
+                        App Home Page
                     </h3>
                 </div>
             );

@@ -11,7 +11,6 @@ const schema = require('./schema/schema');
 
 // Create a new Express application
 const app = express();
-console.log('test from server', process.env.MONGODB_URI);
 
 // Replace with your mongoLab URI
 const MONGODB_URI = process.env.MONGODB_URI ;

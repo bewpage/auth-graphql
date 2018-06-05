@@ -7,8 +7,9 @@ class Dashboard extends Component{
         // console.log('test ', this.props);
         const { user } = this.props.data;
         return (
-            <div>
-                <h3>Welcome Back {user.email}</h3>
+            <div className='center-align'>
+                <h3>Welcome Back</h3>
+                <h5>user: {user.email}</h5>
             </div>
         )
     }

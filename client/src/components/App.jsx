@@ -18,9 +18,9 @@ class App extends Component {
             )
         }else{
             return (
-                <div className=''>
+                <div className='center-align'>
                     <h3>
-                        Auth Starter Page
+                        App Starter Page
                     </h3>
                 </div>
             );

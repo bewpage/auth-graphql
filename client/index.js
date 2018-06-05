@@ -13,6 +13,7 @@ import Dashboard from "./src/components/Dashboard";
 import LoginForm from "./src/components/LoginForm";
 import SignupForm from './src/components/SignupForm';
 import Profile from './src/components/Profile';
+import Settings from './src/components/Settings';
 import './style/style.css';
 
 
@@ -38,6 +39,7 @@ ReactDOM.render(
                         <Route path='/signin' component={LoginForm}/>
                         <Route path='/dashboard' component={RequireAuth(Dashboard)}/>
                         <Route path='/profile' component={RequireAuth(Profile)}/>
+                        <Route path='/settings' component={RequireAuth(Settings)}/>
                     </Switch>
                 </div>
             </div>

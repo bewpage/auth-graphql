@@ -68,7 +68,7 @@ class Header extends Component {
                     <ul id='nav-mobile' className='right hide-on-med-and-down'>
                         <li className={this.props.location.pathname === '/profile' ? 'active' : ''}><Link to='/profile'>Profile</Link></li>
                         <li className={this.props.location.pathname === '/dashboard' ? 'active' : ''}><Link to='/dashboard'>Dashboard</Link></li>
-                        <li><a>Settings</a></li>
+                        <li className={this.props.location.pathname === '/settings' ? 'active' : ''}><Link to='/settings'>Settings</Link></li>
                         <li><a onClick={() => this.logoutButton(user.email)}>Signout</a></li>
                     </ul>
                     {/*side nav menu*/}
@@ -79,14 +79,17 @@ class Header extends Component {
                         style={(toggle ? sideNavOpen : {})}
                     >
                         <li
-                            className={this.props.location.pathname === '/dashboard' ? 'active' : ''}
+                            className={this.props.location.pathname === '/profile' ? 'active' : ''}
                             onClick={() => toggleHandler()}
                         ><Link to='/profile'>Profile</Link></li>
                         <li
                             className={this.props.location.pathname === '/dashboard' ? 'active' : ''}
                             onClick={() => toggleHandler()}
                         ><Link to='/dashboard'>Dashboard</Link></li>
-                        <li><a>Settings</a></li>
+                        <li
+                            className={this.props.location.pathname === '/settings' ? 'active' : ''}
+                            onClick={() => toggleHandler()}
+                        ><Link to='/settings'>Settings</Link></li>
                         <li><a onClick={() => {this.logoutButton(user.email); toggleHandler()}}>Signout</a></li>
                     </ul>
                 </div>
@@ -120,7 +123,7 @@ class Header extends Component {
 
 
     render() {
-        console.log('this.props header', this.props.location.pathname);
+        // console.log('this.props header', this.props.location.pathname);
         // console.log('this.state header', this.state.toggle);
         // console.log('test', this.props.hasOwnProperty('data'));
         const { toggle } = this.state;

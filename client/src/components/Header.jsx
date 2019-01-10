@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, withRouter, NavLink } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { graphql, compose } from 'react-apollo';
 import currentUser from '../../queries/CurrentUser';
 import logoutUser from '../../mutations/logoutUser';
@@ -16,13 +16,13 @@ class Header extends Component {
         }
     }
 
-    handleClick = (event) => {
+    handleClick = () => {
         this.setState({
             toggle: !this.state.toggle
         })
     };
 
-    closeSideMenuNav = (event) => {
+    closeSideMenuNav = () => {
         this.setState({
             toggle: !this.state.toggle
         })

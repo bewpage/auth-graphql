@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt-nodejs');
-const crypto = require('crypto');
+// const crypto = require('crypto');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -7,7 +7,9 @@ const Schema = mongoose.Schema;
 // plain text - see the authentication helpers below.
 const UserSchema = new Schema({
     email: String,
-    password: String
+    password: String,
+    resetPasswordToken: String,
+    resetPasswordExpires: Date
 });
 
 // The user's password is never saved in plain text.  Prior to saving the
@@ -17,8 +19,9 @@ const UserSchema = new Schema({
 // how this is used.
 UserSchema.pre('save', function save(next) {
     const user = this;
+    const SALT_FACTOR = 10;
     if (!user.isModified('password')) { return next(); }
-    bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.genSalt(SALT_FACTOR, (err, salt) => {
         if (err) { return next(err); }
         bcrypt.hash(user.password, salt, null, (err, hash) => {
             if (err) { return next(err); }

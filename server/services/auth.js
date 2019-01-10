@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 const passport = require('passport');
+const crypto = require('crypto');
 const LocalStrategy = require('passport-local').Strategy;
+const nodemailer = require('nodemailer');
+const NODEMAILER_AUTH = require('../nodemailer-auth.js');
+const axios = require('axios');
 
 const User = mongoose.model('user');
 
@@ -81,4 +85,70 @@ function login({ email, password, req }) {
     });
 }
 
-module.exports = { signup, login };
+//Forgot password. Test unit
+const forgot = ({ email, req}) => {
+    return new Promise((resolve, reject) => {
+        crypto.randomBytes(20, (err, buf) => {
+            if(err) { throw new Error ('no random token');}
+            const token = buf.toString('hex');
+            resolve(token);
+        })
+    })
+        .then(token => {
+            return new Promise((resolve, reject) => {
+                User.findOne({ email })
+                    .then(existingUser => {
+                        if(!existingUser){reject('No account with that email address exists!')}
+                        // console.log(existingUser);
+                        return existingUser;
+                    })
+                    .then(existingUser => {
+                        console.log('token test ', token);
+                        console.log('first time existing user ', existingUser.email);
+                        existingUser.resetPasswordToken = token;
+                        existingUser.resetPasswordExpires = Date.now() + 3600000;
+                        resolve(existingUser.save());
+                    })
+            })
+        })
+        .then(existingUser => {
+                const { resetPasswordToken, email } = existingUser;
+                console.log(resetPasswordToken);
+                console.log(email);
+                // console.log(req.headers);
+                const smtpTransporter = nodemailer.createTransport({
+                    service: 'Mailgun',
+                    auth: {
+                        user: NODEMAILER_AUTH.user,
+                        pass: NODEMAILER_AUTH.pass
+                    }
+                });
+                const mailOptions = {
+                    from: 'passwordreset@demo.com',
+                    to: email,
+                    subject: 'Node.js Password Reset',
+                    text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+                        'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+                        'http://' + req.headers.host + '/reset/' + resetPasswordToken + '\n\n' +
+                        'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+                };
+                return smtpTransporter.sendMail(mailOptions, (error, info) => {
+                    if(error){
+                        return console.log(error);
+                    }
+                    console.log('Message sent: %s', info.messageId);
+                });
+        })
+
+};
+
+//reset link test unit
+const reset = ({ token, req }) => {
+    return User.findOne({ token })
+        .then(user => {
+            return user
+        })
+};
+
+
+module.exports = { signup, login, forgot, reset };

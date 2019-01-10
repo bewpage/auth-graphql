@@ -12,7 +12,9 @@ import Header from './src/components/Header';
 import Dashboard from "./src/components/Dashboard";
 import LoginForm from "./src/components/LoginForm";
 import SignupForm from './src/components/SignupForm';
+import ResetForm from './src/components/ResetForm';
 import Profile from './src/components/Profile';
+import NewPasswordForm from './src/components/NewPasswordForm';
 import Settings from './src/components/Settings';
 import './style/style.css';
 
@@ -37,6 +39,8 @@ ReactDOM.render(
                         <Route exact path='/' component={App} />
                         <Route path='/signup' component={SignupForm}/>
                         <Route path='/signin' component={LoginForm}/>
+                        <Route path='/forgot' component={ResetForm}/>
+                        <Route path='/reset/:token' component={NewPasswordForm}/>
                         <Route path='/dashboard' component={RequireAuth(Dashboard)}/>
                         <Route path='/profile' component={RequireAuth(Profile)}/>
                         <Route path='/settings' component={RequireAuth(Settings)}/>

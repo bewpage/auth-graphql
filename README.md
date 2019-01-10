@@ -15,4 +15,5 @@ Here's a link of the deployment on Heroku [live preview](https://auth-graphql-be
 ### I extended this application with:
 
 ### next things to do:
+> **add password reset option**
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import AuthForm from "./AuthForm";
 import { graphql, compose } from 'react-apollo';
 import loginUser from '../../mutations/loginUser';
@@ -21,6 +22,7 @@ class LoginForm extends Component{
     onSubmit = (email, password) => {
         // console.log('email in callback', email);
         // console.log('password in callback', password);
+
         this.props.loginUser({
             variables: {
                 email,
@@ -55,6 +57,8 @@ class LoginForm extends Component{
                     errors={this.state.errors}
                     onSubmit={this.onSubmit}
                 />
+                <div>forgot password <Link to='/forgot'>click</Link>
+                </div>
             </div>
         )
     }

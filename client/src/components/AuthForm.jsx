@@ -20,6 +20,7 @@ class AuthForm extends Component{
         };
     }
 
+
     _onBlur = (event) => {
         const { email, password } = this.state;
         const { target } = event;
@@ -108,7 +109,6 @@ class AuthForm extends Component{
 
                 break;
             case 'password':
-
                 const passwordRef = this.passwordRef.current;
                 const passwordRefValid = this.passwordRef.current.validity.tooShort;
                 fieldValidationErrors.password = this.passwordRef.current.validationMessage;
@@ -132,12 +132,19 @@ class AuthForm extends Component{
     };
 
     validateForm(){
-        this.setState({
-            formValid: this.state.emailValid && this.state.passwordValid
-        })
+        if(this.props.location === '/forgot'){
+            this.setState({
+                formValid: this.state.emailValid
+            })
+        }else{
+            this.setState({
+                formValid: this.state.emailValid && this.state.passwordValid
+            })
+        }
     }
 
-    submitNewUser =(event) => {
+    submitUser=(event) => {
+        // console.log('submitUser');
         event.preventDefault();
         const { email, password } = this.state;
 
@@ -153,10 +160,50 @@ class AuthForm extends Component{
 
     };
 
+    renderPasswordInput(){
+        if(this.props.location === '/forgot'){
+            return(
+                <div> </div>
+            )
+        }else{
+            return(
+                <div className='row'>
+                    <div className='input-field col s6'>
+                        <label htmlFor="password"
+                               ref={this.passwordLabel}
+                        >Password
+                        </label>
+                        <input type="password"
+                               id='password'
+                               name='password'
+                               ref={this.passwordRef}
+                               className='validate'
+                               minLength="4"
+                               value={this.state.password}
+                               onBlur={event => this._onBlur(event)}
+                               onFocus={event => this._onFocus(event)}
+                               onChange={event => this.handlerAnyInputChange(event, 'password')}
+                        />
+                        <span
+                            className="helper-text"
+                            data-error={this.state.formErrors.password}
+                            data-success="right">
+                                    Helper text
+                                </span>
+                    </div>
+                </div>
+            )
+        }
+    };
+
     render() {
+        // console.log('authform props', this.props);
         return (
             <div className='row'>
-                <form className='col s12'>
+                <form
+                    className='col s12'
+                    onSubmit={e => { e.preventDefault(); }}
+                >
                     <div className='row'>
                         <div className='input-field col s6'>
                             <label htmlFor="email"
@@ -183,35 +230,11 @@ class AuthForm extends Component{
                             </span>
                         </div>
                     </div>
-                    <div className='row'>
-                        <div className='input-field col s6'>
-                            <label htmlFor="password"
-                                   ref={this.passwordLabel}
-                            >Password
-                            </label>
-                            <input type="password"
-                                   id='password'
-                                   name='password'
-                                   ref={this.passwordRef}
-                                   className='validate'
-                                   minLength="4"
-                                   value={this.state.password}
-                                   onBlur={event => this._onBlur(event)}
-                                   onFocus={event => this._onFocus(event)}
-                                   onChange={event => this.handlerAnyInputChange(event, 'password')}
-                            />
-                            <span
-                                className="helper-text"
-                                data-error={this.state.formErrors.password}
-                                data-success="right">
-                                    Helper text
-                                </span>
-                        </div>
-                    </div>
+                    {this.renderPasswordInput()}
                     <button
                         type='button'
                         className='btn waves-effect waves-light'
-                        onClick={this.submitNewUser}
+                        onClick={this.submitUser}
                         disabled={!this.state.formValid}
                     >Sign In</button>
                 </form>

@@ -18,7 +18,7 @@
     "apollo-client": "^2.6.4",
     "apollo-link-http": "^1.5.16",
     "aws-sdk": "^2.560.0",
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-plugin-transform-class-properties": "^6.24.1",
